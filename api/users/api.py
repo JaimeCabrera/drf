@@ -17,16 +17,20 @@ class UserApiView(APIView):
 # funciones
 @api_view(['GET', 'POST'])
 def user_api_view(request):
+    # list
     if request.method == "GET":
+        # queryset
         users = User.objects.all()
         users_serializer = UserSerializer(users, many=True)
         return Response(users_serializer.data, status=status.HTTP_200_OK)
+    # create
     elif request.method == "POST":
         user_serializer = UserSerializer(data=request.data)
+        # validation
         if user_serializer.is_valid():
             user_serializer.save()
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(user_serializer.errors)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
