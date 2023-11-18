@@ -27,8 +27,6 @@ class UnitSize(BaseModel):
 
 class Category(BaseModel):
     name = models.CharField(verbose_name="Nombre de la categoria", max_length=50, blank=False, null=False, unique=True)
-    unit_size = models.ForeignKey(UnitSize, verbose_name="Unidad de medida", related_name="category_unitsize",
-                                  on_delete=models.PROTECT)
     historical = HistoricalRecords()
 
     @property
@@ -70,10 +68,14 @@ class Discount(BaseModel):
 
 
 class Product(BaseModel):
+    unit_size = models.ForeignKey(UnitSize, verbose_name="Unidad de medida", related_name="product_unitsize",
+                                  on_delete=models.PROTECT, blank=True)
+    category = models.ForeignKey(Category, verbose_name="Categoria", related_name="product_category",
+                                 on_delete=models.PROTECT, blank=True)
     name = models.CharField(verbose_name="Nombre del producto", max_length=150,
                             unique=True, blank=False, null=False)
     description = models.TextField(verbose_name="Descripción del producto", blank=False, null=False)
-    stock = models.IntegerField(verbose_name="Stock",)
+    stock = models.IntegerField(verbose_name="Stock", )
     image = models.ImageField(verbose_name="Imagen", upload_to="products/", blank=True, null=True)
     historical = HistoricalRecords()
 

@@ -6,7 +6,7 @@ class BaseModel(models.Model):
     id = models.AutoField(primary_key=True)
     state = models.BooleanField(verbose_name="Estado", default=True)
     created_at = models.DateField(verbose_name="Fecha de creación", auto_now=False, auto_now_add=True)
-    updated_at = models.DateField(verbose_name="Fecha de modificación", auto_now=False, auto_now_add=False)
+    updated_at = models.DateField(verbose_name="Fecha de modificación", auto_now=True, auto_now_add=False)
     deleted_at = models.DateField(verbose_name="Fecha de eliminación", auto_now=True, auto_now_add=False)
 
     class Meta:

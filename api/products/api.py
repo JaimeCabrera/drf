@@ -1,11 +1,17 @@
 from rest_framework import generics
 
-from api.products.serializers import UnitSizeSerializer
-from apps.products.models import UnitSize
+from api.products.serializers import UnitSizeSerializer, CategorySerializer, DiscountSerializer
+from apps.base.api import GenericListApiView
+from apps.products.models import UnitSize, Category, Discount
 
 
-class UnitSizeListApiView(generics.ListAPIView):
+class UnitSizeListApiView(GenericListApiView):
     serializer_class = UnitSizeSerializer
 
-    def get_queryset(self):
-        return UnitSize.objects.filter(state=True)
+
+class DiscountListApiView(GenericListApiView):
+    serializer_class = DiscountSerializer
+
+
+class CategoryListApiView(GenericListApiView):
+    serializer_class = CategorySerializer
