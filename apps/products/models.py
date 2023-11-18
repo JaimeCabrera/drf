@@ -5,7 +5,7 @@ from apps.base.models import BaseModel
 
 
 # Create your models here.
-class Unitsize(BaseModel):
+class UnitSize(BaseModel):
     description = models.CharField(verbose_name="Descripcion", max_length=50, blank=False, null=False, unique=True)
     historical = HistoricalRecords()
 
@@ -27,7 +27,7 @@ class Unitsize(BaseModel):
 
 class Category(BaseModel):
     name = models.CharField(verbose_name="Nombre de la categoria", max_length=50, blank=False, null=False, unique=True)
-    unit_size = models.ForeignKey(Unitsize, verbose_name="Unidad de medida", related_name="category_unitsize",
+    unit_size = models.ForeignKey(UnitSize, verbose_name="Unidad de medida", related_name="category_unitsize",
                                   on_delete=models.PROTECT)
     historical = HistoricalRecords()
 
@@ -41,7 +41,7 @@ class Category(BaseModel):
 
     class Meta:
         verbose_name = "Categoria"
-        verbose_name_plural = "Caytegorias"
+        verbose_name_plural = "Categorias"
 
     def __str__(self):
         return self.name
